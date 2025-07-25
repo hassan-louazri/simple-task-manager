@@ -1,4 +1,5 @@
 const express = require("express");
+const logger = require("./middlewares/logger");
 const userRoutes = require("./routes/users");
 const todoRoutes = require("./routes/todos");
 
@@ -6,6 +7,7 @@ const app = express();
 const port = 3001;
 
 app.use(express.json());
+app.use(logger);
 app.use("/user", userRoutes);
 app.use("/task", todoRoutes);
 

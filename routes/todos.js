@@ -1,26 +1,20 @@
 const express = require("express");
+const taskController = require("../controllers/todoControler");
 
 const router = express.Router();
 
-let tasks = [
-    { id: 1, userId: 1, tache: "Detruire le monde", done: false },
-    { id: 3, userId: 2, tache: "Embrasser la maître Trumpstein", done: true }
-]
+router.get("/getAllTasks", taskController.getAllTasks);
 
-router.get("/getAllTasks", (_, res) => {
-    res.json(taches);
-});
+router.get("/getTaskById/:id", taskController.getTaskById);
 
-router.get("/getTaskById/:id", (req, res) => {
-    const id = req.params.id;
-    const task = tasks.find(us => us.id == id);
+router.get("/getTaskByUserId/:id", taskController.getTaskByUser);
 
-    if (task) {
-        res.status(200).json(task);
-    } else {
-        res.status(404).json("Tâche introuvable.");
-    }
-});
+router.get("/getNotDoneTaskByUser/:id", taskController.getTaskByUserNotDone);
 
+router.post("/createTask", taskController.createTask);
+
+router.put("/toggleTask/:id", taskController.toggleTask);
+
+router.delete("/deleteTask/:id", taskController.deleteTask);
 
 module.exports = router;
